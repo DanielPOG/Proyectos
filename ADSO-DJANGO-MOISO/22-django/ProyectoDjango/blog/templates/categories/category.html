@@ -1,0 +1,19 @@
+{%  extends "layouts/layout.html"  %}
+{% block title %}
+    {{category.name}}
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">{{category.name}} </h1>
+    <p> {{category.description}}  </p>
+    {% include "articles/articles.html" %}
+    {% comment %} 
+    1.
+    Se hace la consulta en el views 
+    2.
+    with articles = category.article_set.all SE PUEDE UTILIZAR COMO CONSULTA PARA LA RELACION
+    ESTA SE CAMBIA DE VIEWS
+    3.
+    with  articles=category.articles.all IGUAL QUE EL DOS PERO SE CAMBIA DESDE MODELS 
+    {% endcomment %}
+{% endblock %}

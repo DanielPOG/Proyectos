@@ -1,0 +1,65 @@
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #64c71e;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: #64c71e;
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: #64c71e;
+}
+
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+
+/* Aseguramos que el contenedor de la sección ocupa toda la pantalla */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.gradient-form {
+    background-color: #eee; /* Fondo gris */
+    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hacemos que la card se ajuste bien en pantallas pequeñas */
+.card {
+    width: 100%;
+    max-width: 900px; /* Ancho máximo de la card */
+    box-sizing: border-box;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .col-lg-6 {
+        width: 100%; /* Las columnas se apilan en pantallas pequeñas */
+        margin-bottom: 20px;
+    }
+    .gradient-custom-2 {
+        display: none; /* Escondemos la parte de texto en pantallas más pequeñas */
+    }
+    .card-body {
+        padding: 20px; /* Ajustamos el padding */
+    }
+    .text-center img {
+        width: 50px; /* Reducimos el tamaño del logo */
+    }
+    .fs-6 {
+        font-size: 0.9rem; /* Reducimos el tamaño de la fuente en dispositivos pequeños */
+    }
+}
+
+
+}

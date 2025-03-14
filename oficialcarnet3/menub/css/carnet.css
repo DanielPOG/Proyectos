@@ -1,0 +1,403 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Incluye el padding y borde dentro del tamaño total */
+}
+:root{
+    --color-principal: #ffffff;
+    --color-secondary: #25d63d;
+    --color-sena: #39a900 ;
+    --color-background: #F2F7F9;
+    --color-transparent: transparent;
+    --color-white-tenue: #ffffffc2;
+    --color-text: #555;
+    --color-border: #979393;
+    --color-title: #222222;
+    --color-subtitle: #888;
+    --color-links: #0d4fa5;
+}
+
+
+html, body {
+    
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ajusta la altura para que coincida con el viewport */
+
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Coloca el footer al final */
+    align-items: center;
+    min-height: 100vh; /* Ocupa toda la altura del viewport */
+
+    background-color: #f3f3f3;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+.body__group{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.body__back{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-grow: 1; /* Este elemento ocupa el espacio sobrante */
+    width: 100%;
+    height: 100%;
+    background-color: #f3f3f3;
+}
+.header__header {
+
+    width: 100%;
+    max-width: 100%;
+    height: 8%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Espaciado entre los elementos */
+    background-color: rgb(63, 62, 62);
+    border-bottom: 1px solid rgb(172, 172, 172);
+    padding: 1rem; /* Añade espacio interno para evitar desbordes */
+    flex-wrap: wrap; /* Permite que los elementos bajen a otra línea */
+    /* overflow: hidden; */
+    
+}
+.header__group{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+
+}
+
+
+
+.images__img {
+    margin: 0;
+    margin-top: -2rem;
+    height: 5.5rem;
+    max-width: 6rem; /* Limita el tamaño máximo de la imagen */
+    
+
+}
+
+.header__conten {
+    flex: 1; /* Permite que el contenedor del título use el espacio restante */
+    text-align: center; /* Centra el texto del título */
+
+}
+
+.header__title {
+    font-size: 1.5rem;
+    width: 80%;
+    font-weight: bold;
+    color: #acfca9;
+    margin: 0; /* Elimina márgenes innecesarios */
+    text-align: center;
+    word-wrap: break-word;
+}
+.card {
+    width: 90%;
+    max-width: 300px;
+
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    color: #333;
+}
+.card__header{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+}
+.card__border{
+    border: 1px solid black;
+    border-radius: 0.3rem;
+    padding: 0.5rem;
+    height: 100%;
+
+}
+.content--back__img{
+
+    height: 100%;
+    margin: 3rem;
+}
+.content--back__img-firma{
+    margin: 1rem;
+    color: red;
+}
+.content--back__title{
+    font-size:  1rem;
+    margin-top: 1rem;
+}
+.content--back__date{
+    font-size: 1rem;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+.content--back__ficha{
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+.content--back__subtitle{
+    font-size: 0.8rem;
+    opacity: 0,5;
+    margin-bottom: 1rem;
+}
+.logo img {
+    display: inline-block;
+    width: 30%;
+
+    margin-bottom: 10px;
+    text-align: left;
+    overflow: hidden;
+
+}
+.logo__image{
+    width: 100%;
+    height: 100%;
+}
+
+.photo-placeholder {
+    position: relative;
+    top: -3rem;
+    width: 70%;
+    height: 100%;
+    background-color: #ddd;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    margin-left: auto; /* Mueve el contenedor hacia la derecha */
+    overflow: hidden;
+
+}
+.placeholder__foto{
+    width: 95%;
+    height: 95%;
+}
+
+.card-content {
+    text-align: left;
+    height: 50%;
+    
+}
+.card-content--back{
+    text-align: center;
+}
+.back__button{
+    position: relative;
+    width: 20%;
+    height: 3.2rem;
+    display: block;
+    border: 0.2rem solid var(--color-subtitle);
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    padding: 1rem 1.2rem;
+    outline: none;
+    box-shadow: 0 1rem 1rem -8px rgba(0,0,0,0.10);
+    background-color: var(--color-background);
+    line-height: 1.1rem;
+    transition: all 300ms ease-in-out;
+}
+.button__link{
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+
+    text-decoration: none;
+    color: var(--color-title);
+}
+.back__button:hover{
+    background-color: var(--color-border);
+}
+.title-container {
+
+    border-bottom: 2px solid #333; /* Línea completa hasta el borde */
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem; /* Espacio inferior */
+}
+.title-container--back{
+    font-size: 0.9rem;
+    margin-bottom: 10px; /* Espacio inferior */
+}
+.title {
+    color: #333;
+    font-weight: bold;
+    padding-bottom: 4px;
+    display: inline-block;
+}
+
+
+
+.name {
+    color: #007f3f;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.2;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.id, .info, .location {
+    font-size: 14px;
+    margin: 5px 0;
+    text-align: left;
+}
+.id__span{
+    font-weight: bold;
+    color: #000;
+}
+.location__line{
+    width: 15%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-top: 1px solid black;
+}
+.location__span{
+    color: #000;
+
+}
+.info {
+    font-weight: bold;
+    text-align: left;
+}
+
+.barcode {
+    width: 100%;
+    height: 30px;
+    background-color: #000;
+    margin: 10px 0;
+}
+
+.location {
+    color: #007f3f;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: left;
+}
+
+.barcode-container {
+    width: 100%; /* Ajusta al ancho de la tarjeta */
+    max-width: 80%; /* Limita el ancho máximo */
+    margin: 0 auto; /* Centra el código de barras dentro de la tarjeta */
+    overflow: hidden; /* Oculta cualquier contenido que salga del contenedor */
+}
+
+#barcode {
+    width: 100%;
+    height: auto;
+}
+.card__footer{  
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+    background-color: rgb(82, 80, 80);
+    color: #fff;
+    flex-shrink: 0; /* Evita que el footer se reduzca */
+}
+.content__list{
+    
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    
+
+}
+.option__link{
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #acfca9;
+    transition: all 300ms ease-in-out;
+ 
+}
+.option__link:hover{
+    font-size: 2rem;
+    color: var(--color-links);
+}
+
+/* Media query para pantallas pequeñas */
+/* Media query para pantallas pequeñas */
+@media (max-width: 1024px) {
+    .images__img{
+        height: 4rem;
+        max-width: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header__images {
+        max-width: 40px;
+    }
+
+    .header__title {
+        font-size: 1.2rem;
+    }
+
+    .header__header {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .card {
+        width: 95%;
+        max-width: 300px;
+    }
+    .header__group{
+        gap: 10rem;
+    }
+    
+}
+@media (max-width: 768px) {
+    .card__footer {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+}
+@media (max-width: 600px) {
+    .body__group{
+        flex-direction: column;
+
+    }
+
+}
+
+@media (max-width: 430px) {
+    .header__images {
+        max-width: 30px;
+    }
+
+    .header__title {
+        font-size: 1rem;
+    }
+    .header__group{
+        gap: 0rem;
+    }
+    .back__button{
+        width: 5rem;
+    }
+}

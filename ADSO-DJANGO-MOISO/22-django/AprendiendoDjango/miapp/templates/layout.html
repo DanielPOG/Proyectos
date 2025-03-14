@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+    
+        {% block title %}
+ 
+
+        {% endblock %}
+        | ADSO SENA
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Cabecera de la Pagina -->
+
+    <header>
+        <div id="logotipo">
+            <!-- Logo django -->
+             <img src="{% static 'images/django-logo.png' %}" alt="">
+            <h1>Sitio WEB con Django</h1>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li>
+                <a href='{% url "inicio"%}' >Inicion </a>
+            </li>
+            <li>
+                <a href='{% url "articulos"%}' >Articulos </a>
+            </li>
+            <li>
+                <a href='{% url "create"%}' >Crear Articulo </a>
+            </li>
+            <li>
+                <a href='{% url "hola_mundo"%}' >Hola mundo </a>
+            </li>
+            <li>
+                <a href='{% url "pagina"%}' >Pagina de pruebas </a>
+            </li>
+            <li>
+                <a href='{% url "create_full"%}' >Crear articulo Clases  </a>
+            </li>
+            <li>
+                <a href='{% url "contacto"%}'>Contacto1</a>
+            </li>
+    
+        </ul>
+    </nav>
+    <div id="content">
+        <div class="box">
+            <h2 class="title">Titulo de Prueba</h2>
+            <!-- Codigo que viene de Templates -->
+            {% block content%}
+                <strong>Contenido del bloque Original!!!!</strong>
+            {% endblock %}
+        </div>
+        
+    </div>
+
+    <footer>
+        Curso de Python &copy; ADSO SENA - {% now "d/m/Y h:m:s"%}
+    </footer>
+</body>
+</html>
