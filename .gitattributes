@@ -1,2 +1,18 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Forzar detección de lenguajes en GitHub
+*.js linguist-detectable=true
+*.py linguist-detectable=true
+*.php linguist-detectable=true
+
+# Si hay archivos en subdirectorios específicos, agrégales reglas:
+ADSO-DJANGO-MOISO/**/*.py linguist-detectable=true
+Carnet_F_Ultimo/**/*.py linguist-detectable=true
+Proyecto_moises_Django/**/*.py linguist-detectable=true
+Python_Proyecto_M/**/*.py linguist-detectable=true
+oficialcarnet3/**/*.php linguist-detectable=true
+
+# Evitar contar dependencias como código
+node_modules/* linguist-vendored
+vendor/* linguist-vendored
