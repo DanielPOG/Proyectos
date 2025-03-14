@@ -1,0 +1,24 @@
+{% extends 'layouts/base2.html' %}
+{% block content%}
+    <h1>Lista de usuarios</h1>
+    <ul>
+    {% for user in users %}
+        <li>
+            {{user}}  <button><a href="{% url 'edit_user' user.num_doc %}">Editar</a></button> 
+            <form action='{% url "delete_user" user.num_doc %}' method="POST" onsubmit="return confirmarEliminacion(event)">
+                {% csrf_token %}
+                <button type="submit">
+                    Eliminar
+                </button>
+            </form>
+        </li>
+    {% endfor %}
+    </ul>
+    <script>
+        function confirmarEliminacion(event) {
+            if (!confirm("¿Estás seguro de que quieres eliminar este Usuario?")) {
+                event.preventDefault(); // Cancela el envío del formulario si el usuario presiona "Cancelar"
+            }
+        }
+    </script>
+{% endblock %}

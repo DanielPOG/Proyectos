@@ -1,0 +1,183 @@
+/* General */
+body {
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+/* Contenedor principal */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.content {
+    flex: 1;
+}
+
+/* Header Mejorado */
+.custom-header {
+    background: linear-gradient(135deg, #0a5e2a, #0d8035);
+    padding: 20px 0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+.custom-header::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 80%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+.titulo {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.logo {
+    max-width: 100px;
+    height: auto;
+}
+
+.titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+/* Boton salida */
+.btn-salir {
+    background-color: white;
+    color: #0a5e2a;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-salir:hover {
+    background-color: #b0b0b0;
+    color: white;
+}
+
+
+/* Tarjetas */
+.custom-card {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: #eef7ee;
+    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.20);
+}
+.custom-icon {
+    font-size: 70px;
+    color: #0a5e2a;
+    background-color: #ffffff;
+    border-radius: 50%;
+    padding: 15px;
+}
+.custom-btn {
+    margin-top: 15px;
+    background-color: #0a5e2a;
+    color: white;
+    font-weight: bold;
+    border: none;
+    width: 80%;
+    transition: background-color 0.3s ease;
+}
+.links-cards, .button-links {
+    text-decoration: none;
+    color: white;
+}
+.custom-btn:hover {
+    background-color: #b0b0b0;
+}
+
+/* Tabs */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.tab-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+.tab-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Footer Mejorado */
+.custom-footer {
+    background: linear-gradient(135deg, #222, #444);
+    padding: 20px 0;
+    position: relative;
+    text-align: center;
+    color: white;
+    border-top: 5px solid rgba(255, 255, 255, 0.2);
+}
+.custom-footer::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 80%;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+.footer-icon {
+    font-size: 22px;
+    color: white;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+.footer-icon:hover {
+    transform: scale(1.2);
+    color: #0d8035;
+}
+
+/* Estilos adicionales */
+.links-fichas {
+    text-decoration: none;
+    color: white;
+}
+.link_ficha{
+    text-decoration: none;
+    color: black;
+    font-weight:bold;
+}
+/* Errores */
+.error{
+    color: red;
+    font-size: 30px;
+}

@@ -1,0 +1,163 @@
+{% extends "layouts/prueba.html" %}
+
+{% block header %}
+    <button class="tab-button"><a class='button-links' href='{% url "interfaz_index" %}'>Inicio</a></button>
+    <button class="tab-button"><a class='button-links' href='{% url "index_ficha" %}'>Fichas</a></button>
+    <button class="tab-button"><a class='button-links' href='{% url "crear_ficha" %}'>Crear Fichas</a></button>
+{% endblock %}
+
+{% block content %}
+
+{{ error }}
+
+<div class="row justify-content-center mb-4">
+    <div class="col-md-6 d-flex">
+        {% if ficha_aprendiz %}
+            <h3>Usuarios de la ficha: {{ ficha_aprendiz.0.ficha.numero_ficha }}</h3>
+        {% else %}
+            <p>La ficha no tiene aprendices registrados.</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <table id="tabla-fichas" class="table table-striped table-responsive">
+            <thead>
+                <tr>    
+                    <th>Numero de Ficha</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Documento</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if ficha_aprendiz %}
+                    {% for fa in ficha_aprendiz %}
+                        <tr>
+                            <td>{{ fa.ficha.numero_ficha }}</td>
+                            <td>{{ fa.aprendiz.nombre }}</td>
+                            <td>{{ fa.aprendiz.apellido }}</td>
+                            <td>{{ fa.aprendiz.num_doc }}</td>
+                            <td>{{ fa.aprendiz.rol }}</td>
+                            {% if fa.aprendiz.estado == 1 %}
+                                <td>Activo</td>
+                            {% else %}
+                                <td>Inactivo</td>
+                            {% endif %}
+                            <td>
+                                <button data-bs-toggle="modal" 
+                                    data-bs-target="#edit_user" 
+                                    data-documento="{{ fa.aprendiz.num_doc }}" 
+                                    type="button" 
+                                    class="btn btn-warning btn-sm edit-btn">
+                                    <b>Editar</b>
+                            </button>
+                            
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center">No hay aprendices en esta ficha.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Edición -->
+<div class="modal fade" id="edit_user" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Editar Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí se insertará el formulario dinámicamente -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var editModal = document.getElementById('edit_user');  // Modal
+        var modalBody = editModal.querySelector('.modal-body'); // Contenedor del formulario
+    
+        // Seleccionar todos los botones de edición
+        document.querySelectorAll(".edit-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                var userId = button.getAttribute("data-documento");  // Obtener ID correcto
+    
+                fetch(`/editar_modal_user/${userId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.form) {
+                            modalBody.innerHTML = data.form;  // Insertar formulario dinámicamente
+                            var editForm = document.getElementById("editForm");
+    
+                            if (!editForm) {
+                                console.error("No se encontró el formulario dentro del modal.");
+                                return;
+                            }
+    
+                            // Asegurar que el formulario tiene `enctype="multipart/form-data"`
+                            editForm.setAttribute("enctype", "multipart/form-data");
+    
+                            // Evento para enviar el formulario
+                            editForm.addEventListener("submit", function (event) {
+                                event.preventDefault();  // Evita que se recargue la página
+    
+                                var formData = new FormData(editForm);  // ✅ FormData para imágenes
+    
+                                fetch(`/editar_modal_user/${userId}/`, {
+                                    method: "POST",
+                                    body: formData,
+                                    headers: {
+                                        "X-CSRFToken": getCSRFToken(),  // ✅ Obtener CSRF token correctamente
+                                    },
+                                    credentials: "same-origin" // ✅ Para enviar cookies correctamente
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert("Usuario actualizado correctamente");
+                                        location.reload();  // Recargar para ver cambios
+                                    } else {
+                                        alert("Error al actualizar: " + JSON.stringify(data.errors));
+                                    }
+                                })
+                                .catch(error => console.error("Error:", error));
+                            });
+                        } else {
+                            console.error("No se recibió el formulario en la respuesta del servidor.");
+                        }
+                    })
+                    .catch(error => console.error("Error al cargar el formulario:", error));
+            });
+        });
+    });
+    
+    // ✅ Función para obtener CSRF token correctamente
+    function getCSRFToken() {
+        var token = document.querySelector("[name=csrfmiddlewaretoken]")?.value;
+        if (!token) {
+            return document.cookie.split('; ')
+                .find(row => row.startsWith("csrftoken="))
+                ?.split('=')[1] || "";
+        }
+        return token;
+    }
+    
+</script>
+
+
+
+
+{% endblock %}

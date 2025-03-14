@@ -1,0 +1,27 @@
+{% extends "layouts/prueba.html" %}
+{% block content %}
+<div class="col-md-3 d-flex justify-content-center">
+    <div class="card custom-card text-center">
+        <i class="fas fa-id-badge custom-icon"></i>
+        <button class="btn custom-btn"><a class='links-cards' href='{% url "carnet_admin" %}'>MI CARNET</a></button>
+    </div>
+</div>
+<div class="col-md-3 d-flex justify-content-center">
+    <div class="card custom-card text-center">
+        <i class="fas fa-clipboard custom-icon"></i>
+        <button  class="btn custom-btn"><a class='links-cards' href='{% url "index_ficha" %}'> FICHAS</a></button>
+    </div>
+</div>
+<div class="col-md-3 d-flex justify-content-center">
+    <div class="card custom-card text-center">
+        <i class="fas fa-user custom-icon"></i>
+        <button class="btn custom-btn"><a class='links-cards' href='{% url "index_user" %}'> Usuarios</a></button>
+    </div>
+</div>
+<div class="col-md-3 d-flex justify-content-center">
+    <div class="card custom-card text-center">
+        <i class="fas fa-id-card  custom-icon"></i>
+        <button class="btn custom-btn"><a class='links-cards' href='{% url "carnet_index" %}'> Carnets</a></button>
+    </div>
+</div>
+{% endblock  %}

@@ -1,0 +1,9 @@
+{% extends 'layouts/base2.html' %}
+{% block content %}
+<h1>Crear usuario<h1>
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <button>Guardar</button>
+</form>
+{% endblock %}

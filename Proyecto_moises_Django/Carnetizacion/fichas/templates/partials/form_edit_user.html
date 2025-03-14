@@ -1,0 +1,5 @@
+<form id="editForm" method="POST" action='{% url "editar_modal_user" form.num_doc %}'>
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>

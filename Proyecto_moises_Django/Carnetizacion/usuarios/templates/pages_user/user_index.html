@@ -1,0 +1,100 @@
+{% extends "layouts/prueba.html" %}
+{% block header %}
+
+<button class="tab-button"><a class='button-links' href='{% url "interfaz_index" %}' >Inicio</a> </button>
+<button class="tab-button"><a class='button-links' href='{% url "index_user" %}' >Usuarios</a></button>
+<button class="tab-button"><a class='button-links' href='{% url "crear_user" %}' >Crear Usuarios</a></button>
+
+
+{% endblock  %}
+{% block content %}
+
+<div class="row justify-content-center mb-4">
+    <div class="col-md-6 d-flex">
+        <input id="buscarUsers" type="text" class="form-control" placeholder="Buscar usuario...">
+
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <table id="tabla-users" class="table table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th>Numero de Documento</th>
+                    <th>Nombre</th>
+                    <th>Descripción (Rol)</th>
+                    <th>Ficha</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.num_doc}}  </td>
+                        <td> {{user.nombre}} {{user.apellido}} </td>
+                        <td>{{user.rol}} </td>
+                        <td>{{user.ficha}} </td>
+                        {% if user.estado == 1 %}
+                            <td>Activo</td>
+                        {% else %}
+                            <td>Inactivo</td>
+                        {% endif %}
+                        <td><button type="button" class="btn btn-success"><a class='links-fichas' href='{% url "editar_user" user.num_doc %} '><b> Editar</b></a></button></td>
+                        <td>
+                            <button type="button" class="btn btn-danger" onclick="confirmarEliminacion(`{% url 'eliminar_user' user.num_doc %}`)">
+                                <b>Eliminar</b>
+                            </button>
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+        {% comment %} MENSAJE ERROR {% endcomment %}
+        <p id="mensajeNoResultados" style="display: none; color: red;">No se encontraron resultados</p>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () { //Escucha el DOM , no se ejecuta el codigo hasta que la pagina no este cargada
+        let input = document.getElementById("buscarUsers"); //Id del buscador
+        let filas = document.querySelectorAll("#tabla-users tbody tr"); //seleccionames la tabla y los tr dentro de ella
+    
+        // Oculta todas las filas al cargar la página
+        filas.forEach(fila => fila.style.display = "none"); //recorremos todas las filas y les ponemos que no se vean
+    
+        // Filtra cuando el usuario escribe
+        input.addEventListener("keyup", function () { //detecta cuando el usuario este escribiendo
+            let filtro = input.value.toLowerCase(); //toma el texto y lo pone en minusculas
+            let hayCoincidencias = false; //para saber si hay concidencias si no hay permanece la tabla vacia
+    
+            filas.forEach(fila => { //reccore toda la fila para ver si el texto del buscador coincide
+                let texto = fila.textContent.toLowerCase(); //convierte toda la fila en minusculas
+                if (texto.includes(filtro) && filtro.trim() !== "") {// include(para ver el texto que el usuario escribio) // filtro.trim(evita que se muestren todas las filas si borra el texto el usuario)
+                    fila.style.display = ""; //si concide la busqueda mostramos la fila
+                    hayCoincidencias = true; //cambiar la varible de que si hay coincidencias
+                } else {
+                    fila.style.display = "none"; //si no coincide la fila sigue Oculta
+                }
+            });
+             // Mostrar mensaje si no hay coincidencias
+            if (hayCoincidencias) {
+                mensajeNoResultados.style.display = "none";
+            } else {
+                mensajeNoResultados.style.display = "block";
+            }
+        });
+    });
+    
+</script>
+<!-- PARA ELIMINAR CONFIRMACION -->
+<script>
+    function confirmarEliminacion(url) {
+        let confirmar = confirm("¿Seguro que quieres eliminar este usuario?");
+        if (confirmar) {
+            window.location.href = url; // Redirige solo si se confirma
+        }
+    }
+</script>
+
+{% endblock  %}

@@ -1,0 +1,44 @@
+{% extends 'layouts/base2.html' %}
+{% block content %}
+<h1>Cargar usuarios<h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>Enviar</button>
+    </form>
+{% endblock %}
+<!-- Campo para los resultados del autocompletado -->
+<ul id="resultadoBusqueda" class="autocomplete-suggestions" style="display: none;"></ul>
+
+<script type="text/javascript">
+  const input = document.querySelector('[name="aprendiz"]');  // Obtener el campo de 'aprendiz'
+  const resultados = document.getElementById('resultadoBusqueda');
+
+  input.addEventListener('keyup', function() {
+    const query = input.value;
+    if (query.length > 2) {  // Solo buscar cuando el texto tenga más de 2 caracteres
+      fetch(`/buscar-aprendiz/?q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          resultados.innerHTML = '';  // Limpiar resultados previos
+          if (data.length > 0) {
+            resultados.style.display = 'block';  // Mostrar lista de sugerencias
+            data.forEach(aprendiz => {
+              const li = document.createElement('li');
+              li.textContent = aprendiz.nombre;
+              li.onclick = () => {
+                input.value = aprendiz.nombre;  // Rellenar el campo con el nombre del aprendiz seleccionado
+                resultados.innerHTML = '';  // Limpiar resultados
+                resultados.style.display = 'none';  // Ocultar lista de sugerencias
+              };
+              resultados.appendChild(li);
+            });
+          } else {
+            resultados.style.display = 'none';  // Ocultar si no hay resultados
+          }
+        });
+    } else {
+      resultados.style.display = 'none';  // Ocultar si no hay texto suficiente para buscar
+    }
+  });
+</script>

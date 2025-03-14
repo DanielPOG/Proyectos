@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnetizacion Sena</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href='{% url "fichas_index" %}' >Fichas</a>
+            </li>
+            <li>
+                <a href='{% url "create_ficha" %}' >Crear fichas</a>
+            </li>
+            <li>
+                <a href="{% url 'index' %}">usuarios_index</a>
+            </li>
+
+        </ul>    
+    </nav>
+    {% block content %}
+    {% endblock  %}
+</body>
+</html>
+

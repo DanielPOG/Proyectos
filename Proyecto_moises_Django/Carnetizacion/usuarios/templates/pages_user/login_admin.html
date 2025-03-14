@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=" {% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-free-6.1.2-web/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/poppins/' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    
+    <title>Carnetizacion Sena</title>
+
+    
+</head>
+<body>  
+    <!-- Layout Principal. -->
+    <div class="layout">
+        <aside class="layout__aside">
+            <div class="aside__content">
+                <section class="content__text">
+                        <h1 class="text__title">Bienvenido </h1>
+                        <p class="text__words">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Libero, ex? Alias culpa commodi amet excepturi nostrum similique nisi, accusantium dolorum? Libero dolores nesciunt enim optio nobis placeat cum laborum repellendus?</p>
+                </section>
+                <section class="footer__container">
+                    <ul class="footer__list">
+                        <li class="list__option"><a class="option__link" href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                        <li class="list__option"><a class="option__link" href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li class="list__option"><a class="option__link" href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                    </ul>
+            
+                </section>
+                
+            </div>
+
+        </aside>
+        <!-- card login -->
+        <main class="layout__login">
+            <div class="login__container">
+                <div class="container__image">
+                    <img class="image__logo-sena" src="{% static '/img/sena1.PNG'%}" alt="Logo sena">
+                </div>
+                <section class="container__login-card">
+                    <h2 class="login-card__title">Carnetizacion <span class="login-card__span"> SENA</span> </h2>
+                    {% if messages %}
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <form method='POST'>
+                        {% csrf_token %}
+                        <div class="login__group">
+                            <input class="login-card__input" id="num_doc" name="num_doc" type="number" placeholder="Numero de documento">
+                            <label for="num_doc" class="login-card__input-label">Numero de Documento</label>
+                        </div>
+                        <div class="login__group">
+                            <input class="login-card__input" id="clave" name="clave" type="password" placeholder="clave">
+                            <label for="clave" class="login-card__input-label">Clave</label>
+                        </div>
+                        <button class="login-card__button">Entrar</button>
+                    </form>
+
+                        
+                    <section class="footer__container--responsive">
+                        <ul class="footer__list">
+                            <li class="list__option"><a class="option__link--responsive" href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                            <li class="list__option"><a class="option__link--responsive" href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                            <li class="list__option"><a class="option__link--responsive" href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                        </ul>
+                    </section>
+                    
+                </section>
+            </div>
+        </main>
+        
+    </div>
+    <script>
+        // Si la página se carga después de logout, la recargamos solo una vez
+        if (sessionStorage.getItem("logout") === "true") {
+            sessionStorage.removeItem("logout"); // Elimina la marca para evitar recarga infinita
+            location.reload(); // Recarga la página solo UNA vez
+        }
+    </script>
+    
+</body>
+
+</html>

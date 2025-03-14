@@ -1,0 +1,14 @@
+{% extends 'layouts/base2.html' %}
+{% block content %}
+<h1>Crear roles</h1>
+{{error}}
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        {{form}}
+    </div>
+    <div>
+        <button>Save</button>
+    </div>
+</form>
+{% endblock %}

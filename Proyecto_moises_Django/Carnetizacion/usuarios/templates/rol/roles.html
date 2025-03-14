@@ -1,0 +1,32 @@
+{% extends "layouts/base2.html" %}
+{% block content %}
+<h1>Lista de roles<h1>
+    {{error}}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <ul>
+    {% for rol in roles %}
+        <li>{{rol}} <button><a href='{% url "edit_rol" rol.nombre %}'>Editar</a></button>
+            <form action='{% url "delete_rol" rol.nombre %}' method="POST" onsubmit="return confirmarEliminacion(event)">
+                {% csrf_token %}
+                <button type="submit">
+                    Eliminar
+                </button>
+            </form>
+        </li> 
+    {% endfor %}
+    </ul>
+    <script>
+        function confirmarEliminacion(event) {
+            if (!confirm("¿Estás seguro de que quieres eliminar este rol?")) {
+                event.preventDefault(); // Cancela el envío del formulario si el usuario presiona "Cancelar"
+            }
+        }
+    </script>
+{% endblock  %}

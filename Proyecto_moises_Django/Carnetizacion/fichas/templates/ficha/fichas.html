@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+    <ul>
+    {% for ficha in fichas %}
+    <a href="{% url 'ficha_detail' ficha.numero_ficha %}">
+        <li>{{ficha.numero_ficha}} <strong>PROGRAMA</strong></li>
+    </a>
+    {% endfor %}
+    </ul>
+{% endblock  %}

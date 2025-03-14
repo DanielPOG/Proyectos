@@ -1,0 +1,10 @@
+{% extends 'layouts/base2.html' %}
+{% block content %}
+<h1>Cargar usuarios<h1>
+
+<form name='formXSLX' id='formXSLX' method='POST' enctype='multipart/form-data' >
+    {% csrf_token %}
+    <input  type='file' name='archivo_xlsx' id='archivo_xlsx' accept='.xlsx' />
+    <button>Cargar</button>
+</form>
+{% endblock %}

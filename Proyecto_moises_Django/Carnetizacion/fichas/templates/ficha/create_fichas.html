@@ -1,0 +1,37 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+{{error}}
+<form method="post">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label for="{{ form.numero_ficha.id_for_label }}">Número de Ficha</label>
+        <p>{{ form.numero_ficha }}</p>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.fecha_inicio.id_for_label }}">Fecha de Inicio</label>
+        <p>{{ form.fecha_inicio }}</p>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.fecha_final.id_for_label }}">Fecha de Finalización</label>
+        <p>{{ form.fecha_final }}</p>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.lider_ficha.id_for_label }}">Líder de Ficha</label>
+        <p>{{ form.lider_ficha }}</p>
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.tipo_programa.id_for_label }}">Tipo de Programa</label>
+        <p>{{ form.tipo_programa }}</p>
+    </div>
+
+    <button type="submit">Guardar</button>
+</form>
+
+{% endblock  %}
+
+

@@ -1,0 +1,13 @@
+
+{% block content %}
+<h1>Editar Usuario----- {{user}} </h1>
+<form method='POST'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button>Actualizar</button>
+    <button><a href='{% url "view_users" %}'>Cancelar</a></button>
+</form>
+
+
+{% endblock  %}
+

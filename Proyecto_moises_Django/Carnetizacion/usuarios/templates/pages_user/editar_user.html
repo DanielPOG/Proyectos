@@ -1,0 +1,57 @@
+{% extends "layouts/prueba.html" %}
+{% block header %}
+
+<button class="tab-button"><a class='button-links' href='{% url "interfaz_index" %}' >Inicio</a> </button>
+<button class="tab-button"><a class='button-links' href='{% url "index_user" %}' >Usuarios</a></button>
+
+<button class="tab-button"><a class='button-links' href='{% url "crear_user" %}' >Crear Usuario</a></button>
+
+
+{% endblock  %}
+{% block content %}
+<h3 class="text-center">Editar Usuario</h3>
+
+<div class="col-md-8">
+
+    <h1 class='error'>{{error}}</h1>
+    <form method="post" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+            {{form.nombre}}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.apellido.id_for_label }}" class="form-label">Apellido</label>
+            {{form.apellido}}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.rh.id_for_label }}" class="form-label">Rh</label>
+            {{form.rh}}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.tipo_doc.id_for_label }}" class="form-label">Tipo Documento</label>
+            {{form.tipo_doc}}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.num_doc.id_for_label }}" class="form-label">Numero de Documento</label>
+            {{form.num_doc}}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.foto.id_for_label }}" class="form-label">Foto</label>
+            {{form.foto}}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.estado.id_for_label }}" class="form-label">Estado</label>
+            {{form.estado}}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.rol.id_for_label }}" class="form-label">Rol</label>
+            {{form.rol}}
+        </div>
+        
+        <button type="submit" class="btn btn-success w-100">Guardar Cambios</button>
+    </form>
+</div>
+
+{% endblock  %}

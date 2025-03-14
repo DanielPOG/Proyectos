@@ -1,0 +1,202 @@
+{% extends "layouts/prueba.html" %}
+{% block header %}
+<button class="tab-button"><a class='button-links' href='{% url "interfaz_index" %}' >Inicio</a> </button>
+<button class="tab-button"><a class='button-links' href='{% url "index_user" %}' >Usuarios</a></button>
+<button class="tab-button"><a class='button-links' href='{% url "crear_user" %}' >Crear Usuarios</a></button>
+{% endblock  %}
+
+{% block content %}
+<div class="col-md-8">
+    <h1 class='error'>{{error}}  </h1>
+    <h6 class='error'>{{errors}}  </h6>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
+                    {{form.nombre}}
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="mb-3">
+                    <label for="{{ form.apellido.id_for_label }}" class="form-label">Apellido</label>
+                    {{form.apellido}}
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-6'>
+                <div class="mb-3">
+                    <label for="{{ form.rh.id_for_label }}" class="form-label">Rh</label>
+                    {{form.rh}}
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="mb-3">
+                    <label for="{{ form.num_doc.id_for_label }}" class="form-label">Numero de Documento</label>
+                    {{ form.num_doc }}
+                </div>
+            </div>
+        </div>
+        
+        <div class='row'>
+            <div class='col-6'>
+                <div class="mb-3">
+                    <label for="{{ form.tipo_doc.id_for_label }}" class="form-label">Tipo de Documento</label>
+                    {{ form.tipo_doc }}
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="mb-3">
+                    <label for="{{ form.foto.id_for_label }}" class="form-label">Foto</label>
+                    {{ form.foto }}
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-6'>
+                <div class="mb-3">
+                    <label for="{{ form.estado.id_for_label }}" class="form-label">Estado</label>
+                    {{ form.estado }}
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="mb-3">
+                    <label for="{{ form.rol.id_for_label }}" class="form-label">Rol</label>
+                    {{ form.rol }}
+                </div>
+            </div>
+        </div>
+        <!-- CAMPOS ADICIONALES PARA APRENDIZ -->
+        <div id="aprendizFields" class="d-none">
+            <div class="mb-3">
+                <label for="ficha_aprendiz" class="form-label">Ficha</label>
+                <input type="text" id="ficha_aprendiz" name="ficha_aprendiz" class="form-control" >
+            </div>
+        </div>
+
+        <!-- CAMPOS ADICIONALES PARA INSTRUCTOR -->
+        <div id="instructorFields" class="d-none">
+            <div class="mb-3">
+                <div class="mb-3">
+                    <label for="password_instructor" class="form-label">Password</label>
+                    <input type="password" id="password_instructor" name="password_instructor" class="form-control">
+                </div>
+                <div id="error-msg" style="margin-top: 10px;"></div>
+                <label for="ficha_instructor" class="form-label">Ficha</label>
+                <input type="text" id="ficha_instructor" name="ficha_instructor" class="form-control" placeholder='Ficha Lider'>
+            </div>
+            
+        </div>
+         <!-- CAMPOS ADICIONALES PARA ADMIN -->
+        <div id="adminFields" class="d-none">
+            <div class="mb-3">
+                <label for="password_admin" class="form-label">Password</label>
+                <input type="password" id="password_admin" name="password_admin" class="form-control">
+            </div>
+        </div>
+        
+
+        <button type="submit" class="btn btn-success w-100">Guardar Cambios</button>
+    </form>
+</div>
+<!-- PARA QUE QUITE O MUESTRE LOS CAMPOS DEPENDIENDO DEL ROL -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const rolSelect = document.querySelector("#{{ form.rol.auto_id }}");
+        const aprendizFields = document.getElementById("aprendizFields");
+        const instructorFields = document.getElementById("instructorFields");
+        const adminFields = document.getElementById("adminFields");
+
+        function toggleFields() {
+            const selectedRole = rolSelect.options[rolSelect.selectedIndex].text.trim();
+
+            // Ocultar todos los campos primero
+            aprendizFields.classList.add("d-none");
+            instructorFields.classList.add("d-none");
+            adminFields.classList.add("d-none");
+            // Mostrar los campos según el rol seleccionado
+            if (selectedRole === "Aprendiz") {
+                aprendizFields.classList.remove("d-none");
+            } else if (selectedRole === "Instructor") {
+                instructorFields.classList.remove("d-none");
+            }
+            else if (selectedRole === "Admin") {
+                adminFields.classList.remove("d-none");
+            }
+        }
+
+        rolSelect.addEventListener("change", toggleFields);
+        toggleFields(); // Para manejar casos donde ya haya un valor preseleccionado
+    });
+
+
+    
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let fichaInput = document.getElementById("ficha_instructor"); 
+        let errorMsg = document.getElementById("error-msg"); 
+        let form = document.querySelector("form"); 
+    
+        fichaInput.addEventListener("blur", function() { 
+            let fichaNumero = fichaInput.value.trim();
+    
+            if (fichaNumero) {
+                fetch(`/validar_ficha/${fichaNumero}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            // 🚨 Evitar pregunta de reemplazo si la ficha no existe
+                            if (data.error.includes("Ficha no encontrada")) {
+                                errorMsg.innerHTML = `<p style="color: red;">${data.error}</p>`;
+                                return;
+                            }
+    
+                            errorMsg.innerHTML = `<p style="color: red;">${data.error}</p>`;
+    
+                            let confirmar = confirm(`${data.error} ¿Deseas reemplazar al líder actual?`);
+    
+                            if (confirmar) {
+                                errorMsg.innerHTML = `<p style="color: green;">Se asignará un nuevo líder a la ficha.</p>`;
+                                
+                                let confirmarInput = document.getElementById("confirmar_reemplazo");
+                                if (!confirmarInput) {
+                                    confirmarInput = document.createElement("input");
+                                    confirmarInput.type = "hidden";
+                                    confirmarInput.name = "confirmar_reemplazo";
+                                    confirmarInput.id = "confirmar_reemplazo";
+                                    form.appendChild(confirmarInput);
+                                }
+                                confirmarInput.value = "true";
+                            } else {
+                                errorMsg.innerHTML = `<p style="color: orange;">No se realizó el cambio.</p>`;
+                            }
+                        } else {
+                            errorMsg.innerHTML = ""; 
+                        }
+                    })
+                    .catch(error => console.error("Error al verificar ficha:", error));
+            }
+        });
+    
+        // Confirmar antes de enviar el formulario
+        form.addEventListener("submit", function(event) {
+            if (errorMsg.innerHTML.includes("ya tiene un líder asignado")) {
+                let confirmar = confirm("¿Seguro que quieres reemplazar al líder de la ficha?");
+                if (!confirmar) {
+                    event.preventDefault();
+                }
+            }
+        });
+    });
+    
+</script>
+    
+
+    
+{% endblock  %}
