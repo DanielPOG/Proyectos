@@ -132,26 +132,41 @@ def validar_ficha(request, ficha_numero):
         return JsonResponse({"error": "Ficha no encontrada."})
 
 @login_required
-def editar_user(request, id):  # EDITAR USUARIOS
-    user = get_object_or_404(Usuarios, num_doc=id)
+def editar_user(request, id):
+    usuario_a_editar = get_object_or_404(Usuarios, num_doc=id)
+    print("RH original:", usuario_a_editar.rh)
 
     if request.method == 'POST':
-        form = CreateUsers(request.POST, request.FILES, instance=user)  # ✅ request.FILES agregado
+        form = CreateUsers(request.POST or None, request.FILES or None, instance=usuario_a_editar, user=request.user)
 
         if form.is_valid():
             user = form.save(commit=False)
 
             # Si no se sube una nueva imagen, conservar la anterior
             if not request.FILES.get('foto'):
-                user.foto = user.foto  # ✅ Mantener la foto actual
+                user.foto = usuario_a_editar.foto
 
-            user.save()  # Guardar cambios
+            # Asignar rh solo si es superuser, sino conservar el original
+            if request.user.is_superuser:
+                user.rh = form.cleaned_data.get('rh')
+            else:
+                user.rh = usuario_a_editar.rh
+
+            print("RH a guardar:", user.rh)
+            user.save()
             return redirect('index_user')
+
         else:
-            context = {'user': user, 'form': form, 'error': 'Formulario no válido'}
+            context = {
+                'user': usuario_a_editar,
+                'form': form,
+                'error': 'Formulario no válido'
+            }
             return render(request, 'pages_user/editar_user.html', context)
 
-    form = CreateUsers(instance=user)
+    else:
+        form = CreateUsers(instance=usuario_a_editar, user=request.user)
+
     return render(request, 'pages_user/editar_user.html', {'form': form})
 
 def eliminar_user(request, id):

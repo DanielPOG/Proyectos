@@ -11,8 +11,8 @@ class CreateUsers(forms.ModelForm):
     )
     rh = forms.ModelChoiceField(
         queryset=Rh.objects.all(),
-        widget=forms.Select(attrs={'class': 'form-select'}), required=False
-
+        widget=forms.Select(attrs={'class': 'form-select'}),
+        required=False
     )
     tipo_doc = forms.ModelChoiceField(
         queryset=TipoDoc.objects.all(),
@@ -25,7 +25,6 @@ class CreateUsers(forms.ModelForm):
         widget=forms.ClearableFileInput(attrs={'class': 'form-control'}),
         required=False
     )
-
     rol = forms.ModelChoiceField(
         queryset=Roles.objects.all(),
         widget=forms.Select(attrs={'class': 'form-select'})
@@ -40,18 +39,23 @@ class CreateUsers(forms.ModelForm):
         fields = ['nombre', 'apellido', 'rh', 'tipo_doc', 'num_doc', 'foto', 'estado', 'rol']
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)  # Guardamos el usuario en la instancia
         super(CreateUsers, self).__init__(*args, **kwargs)
 
         if self.instance and self.instance.pk:
             self.fields['num_doc'].widget.attrs['readonly'] = True  # Solo lectura
-            self.fields['rh'].widget.attrs['disabled'] = True  
+
+            # Deshabilitar campo RH si no es superuser
+            if not (self.user and self.user.is_superuser):
+                self.fields['rh'].widget.attrs['disabled'] = True
 
     def clean_rh(self):
-        if self.instance and self.instance.pk:
-            return self.instance.rh  # ⬅️ Se fuerza a mantener el valor original
+        # Si no es superuser, devolvemos el valor original (no editable)
+        if not (self.user and self.user.is_superuser):
+            return self.instance.rh
+
+        # Si es superuser, aceptamos el valor enviado (editable)
         return self.cleaned_data.get('rh')
-
-
 
 class InsertUser(forms.ModelForm):
     class Meta:
