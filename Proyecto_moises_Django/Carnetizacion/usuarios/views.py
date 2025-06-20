@@ -162,6 +162,11 @@ def eliminar_user(request, id):
 def login_user(request): #ENTRADA DE APRENDICES
     if request.method == 'POST':
         num_doc = request.POST['num_doc']  # Obtener el número de documento del formulario
+        if num_doc is None or num_doc.strip() == "" or num_doc == "":  
+            messages.error(request, 'Número de documento no puede estar vacío')
+            error = "Número de documento no puede estar vacío"
+            return render(request, 'pages_user/login_user.html', {'errors': error})
+        
         try:
             user = Usuarios.objects.get(num_doc=num_doc)  # Obtener el usuario por número de documento
         except Usuarios.DoesNotExist:
@@ -187,7 +192,10 @@ def login_admin(request):  # ENTRADA DE ADMIN/INSTRUCTORES
     if request.method == 'POST':
         num_doc = request.POST['num_doc']  # Obtener el número de documento del formulario
         password = request.POST.get('clave')  # Obtener la contraseña del formulario
-
+        if num_doc is None or num_doc.strip() == "" or num_doc == "":  
+            messages.error(request, 'Número de documento no puede estar vacío')
+            return render(request, 'pages_user/login_admin.html')
+        
         try:
             user = Usuarios.objects.get(num_doc=num_doc)  # Obtener el usuario por número de documento
         except Usuarios.DoesNotExist:
